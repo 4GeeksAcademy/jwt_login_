@@ -47,7 +47,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			}
+		},
+		// Add the signup action
+		signup: async (email, username, password, name) => {
+			try {
+				const response = await fetch(process.env.BACKEND_URL + "api/signup", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						email: email,
+						username: username,
+						password: password,
+						name: name
+					})
+				});
+				
+				if (!response.ok) {
+					throw new Error("Failed to create user");
+				}
+
+				const data = await response.json();
+				console.log("User created successfully:", data);
+
+				// Optionally, update the store or perform other actions
+				// setStore({ ... });
+
+				return data;
+			} catch (error) {
+				console.error("Error during signup:", error);
+			}
 		}
+	
 	};
 };
 
