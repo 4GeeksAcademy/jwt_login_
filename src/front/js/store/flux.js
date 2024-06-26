@@ -46,8 +46,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
-		},
+			},
+		
 		// Add the signup action
 		signup: async (email, username, password, name) => {
 			try {
@@ -80,7 +80,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		}
 	
-	};
+	}
+};
 };
 
 export default getState;
