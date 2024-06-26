@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../appContext"; // Ajusta la ruta según tu estructura de archivos
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
     const { actions } = useContext(Context);
+    const navigate = useNavigate(); // Obtener la función navigate
     const [data, setData] = useState({
         email: "",
         username: "",
         password: "",
         name: ""
     });
-    const [message, setMessage] = useState("");
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -23,16 +24,15 @@ const SignupForm = () => {
         event.preventDefault();
         const result = await actions.signup(data.email, data.username, data.password, data.name);
         if (result) {
-            setMessage("User created successfully");
+            navigate("/login"); // Navegar a la ruta de login después del registro exitoso
         } else {
-            setMessage("Signup failed");
+            console.log("Signup failed"); // Manejar el caso de fallo de registro
         }
     };
 
     return (
         <div className="container mt-5">
             <h2>Sign Up</h2>
-            {message && <div className="alert alert-info">{message}</div>}
             <form onSubmit={handleSignup}>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
