@@ -2,14 +2,13 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext"; // Ajusta la ruta según tu estructura de archivos
 import { useNavigate } from "react-router-dom";
 
-const SignupForm = () => {
+const LoginForm = () => {
     const { actions } = useContext(Context);
     const navigate = useNavigate(); // Obtener la función navigate
     const [data, setData] = useState({
         email: "",
-        username: "",
-        password: "",
-        name: ""
+        password: ""
+        
     });
 
     const handleChange = (event) => {
@@ -22,17 +21,17 @@ const SignupForm = () => {
 
     const handleSignup = async (event) => {
         event.preventDefault();
-        const result = await actions.signup(data.email, data.username, data.password, data.name);
+        const result = await actions.login(data.email, data.password);
         if (result) {
-            navigate("/login"); // Navegar a la ruta de login después del registro exitoso
+            navigate("/demo"); 
         } else {
-            console.log("Signup failed"); // Manejar el caso de fallo de registro
+            alert("login failed"); // Manejar el caso de fallo de login
         }
     };
 
     return (
         <div className="container mt-5">
-            <h2>Sign Up</h2>
+            <h2>Login</h2>
             <form onSubmit={handleSignup}>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
@@ -47,19 +46,7 @@ const SignupForm = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        name="username"
-                        placeholder="Enter username"
-                        value={data.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input
@@ -73,23 +60,11 @@ const SignupForm = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        name="name"
-                        placeholder="Enter name"
-                        value={data.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Sign Up</button>
+                
+                <button type="submit" className="btn btn-primary">Login</button>
             </form>
         </div>
     );
 };
 
-export default SignupForm;
+export default LoginForm;

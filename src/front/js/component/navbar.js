@@ -12,8 +12,8 @@ export const Navbar = () => {
 					<Link to="/signup" className="btn btn-primary">
 						Go to Sign Up
 					</Link>
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
+					<Link to="/login">
+						<button className="btn btn-primary">Login</button>
 					</Link>
 				</div>
 			</div>

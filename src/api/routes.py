@@ -37,3 +37,16 @@ def create_one_user():
     db.session.commit()
     
     return jsonify({"msg": "user created succesfull"}), 200
+
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email = email).first()
+    if user is None:
+        return jsonify({"msg":"user not found"}), 404   
+    valid_password = current_app.bcrypt.check_password_hash(user.password, password)
+    if valid_password is False:
+        return jsonify ({"msg": "invalidad password"}), 401
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token, user=user.serialize()), 200
