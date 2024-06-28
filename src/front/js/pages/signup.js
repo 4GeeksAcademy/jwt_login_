@@ -26,7 +26,7 @@ const SignupForm = () => {
         if (result) {
             navigate("/login"); // Navegar a la ruta de login después del registro exitoso
         } else {
-            console.log("Signup failed"); // Manejar el caso de fallo de registro
+            alert("Signup failed"); // Manejar el caso de fallo de registro
         }
     };
 
